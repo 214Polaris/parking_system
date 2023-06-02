@@ -14,7 +14,7 @@ public class UserInfoServlet extends HttpServlet {
 
   private static final String DB_URL = "jdbc:mysql://localhost:3306/parking";
   private static final String USER = "root";
-  private static final String PASS = "chen8574jun";
+  private static final String PASS = "Aa15606936638";
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String username = request.getParameter("username");
@@ -25,7 +25,9 @@ public class UserInfoServlet extends HttpServlet {
     }
 
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      // 使用新的驱动类
+      Class.forName("com.mysql.cj.jdbc.Driver");
+
       Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
       String sql = "SELECT licensePlate FROM users WHERE username = ?";
@@ -51,8 +53,9 @@ public class UserInfoServlet extends HttpServlet {
       conn.close();
 
     } catch (Exception e) {
-      response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred.");
       e.printStackTrace();
+      // 把错误详情发送到响应中
+      response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred: " + e.toString());
     }
   }
 }

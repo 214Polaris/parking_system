@@ -18,7 +18,7 @@ public class TakeOutCarServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Aa15606936638");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
             String selectQuery = "SELECT entryTime FROM cars WHERE licensePlate = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(selectQuery);

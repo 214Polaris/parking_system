@@ -49,7 +49,7 @@
     <div class="frame" style="height: 45rem; width: 60rem;">
       <div align="center">
         <div class="frame__header">
-          <h1 id="welcomeMessage"> 个人中心 </h1>
+          <h1 id="welcomeMessage"> 人中心 </h1>
           <div class="avatar--xl"><img src="https://i.imgur.com/sbKJVxr.png" /></div>
           <!--数据库拿用户名-->
           <p class="u-text-center frame__title">John Doe</p>
@@ -145,6 +145,9 @@
         document.getElementById("userInfo").innerText = "Username: " + userInfo.username + ", LicensePlate: " + userInfo.licensePlate;
         // 修改欢迎语为"Welcome, <username>"
         document.getElementById("welcomeMessage").innerText = "Welcome, " + userInfo.username;
+        // 绑定存取车的按钮到对应的函数
+
+
       }
     };
 

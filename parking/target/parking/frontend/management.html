@@ -49,17 +49,20 @@
     <div class="frame" style="height: 45rem; width: 60rem;">
       <div align="center">
         <div class="frame__header">
-          <h1 id="welcomeMessage"> 个中心 </h1>
-          <div class="avatar--xl"><img src="https://i.imgur.com/sbKJVxr.png" /></div>
-          <!--数据库拿用户名-->
-          <p class="u-text-center frame__title">John Doe</p>
-          <p class="u-text-center frame__subtitle">Former youngest person on Earth</p>
-          <button type="button" class="btn-success btn--xl" onclick="storeCar()">我要存车</button>
-          <button type="button" class="btn-success btn--xl" onclick="takeOutCar()">我要取车</button>
-          <!--更改显示个人信息-->
-          <br /><button type="button" class="btn-success btn--xl" onclick="takeOutCar()">修改个人信息</button>
-          <br /><button type="button" class="btn-success btn--md" onclick="ReturnPage()">退出登录</button>
-          <div id="userInfo"></div>
+          <<<<<<< HEAD <h1 id="welcomeMessage"> 个中心 </h1>
+            =======
+            <h1 id="welcomeMessage"> 人中心 </h1>
+            >>>>>>> b9eb57cc3a3957a5db6bd0265e37ac46ab26c5fb
+            <div class="avatar--xl"><img src="https://i.imgur.com/sbKJVxr.png" /></div>
+            <!--数据库拿用户名-->
+            <p class="u-text-center frame__title">John Doe</p>
+            <p class="u-text-center frame__subtitle">Former youngest person on Earth</p>
+            <button type="button" class="btn-success btn--xl" onclick="storeCar()">我要存车</button>
+            <button type="button" class="btn-success btn--xl" onclick="takeOutCar()">我要取车</button>
+            <!--更改显示个人信息-->
+            <br /><button type="button" class="btn-success btn--xl" onclick="takeOutCar()">修改个人信息</button>
+            <br /><button type="button" class="btn-success btn--md" onclick="ReturnPage()">退出登录</button>
+            <div id="userInfo"></div>
         </div>
       </div>
     </div>
@@ -145,6 +148,9 @@
         document.getElementById("userInfo").innerText = "Username: " + userInfo.username + ", LicensePlate: " + userInfo.licensePlate;
         // 修改欢迎语为"Welcome, <username>"
         document.getElementById("welcomeMessage").innerText = "Welcome, " + userInfo.username;
+        // 绑定存取车的按钮到对应的函数
+
+
       }
     };
 

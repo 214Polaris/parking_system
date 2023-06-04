@@ -8,8 +8,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.sql.SQLException;
-import org.json.JSONObject; 
+import jakarta.json.Json;
+import jakarta.json.JsonObjectBuilder;
 
 public class TakeOutCarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,13 +39,11 @@ public class TakeOutCarServlet extends HttpServlet {
                         updateStatement.setString(3, licensePlate);
                         updateStatement.executeUpdate();
                 // 将返回的消息和费用信息封装成JSON格式
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("message", "Take out Car Operation Successful!");
-                    jsonObject.put("cost", cost);
-                    String json = jsonObject.toString();
-                
+                    JsonObjectBuilder builder = Json.createObjectBuilder();
+                    builder.add("message", "Take out Car Operation Successful!");
+                    builder.add("cost", cost);
                     response.setContentType("application/json");
-                    response.getWriter().write(json);
+                    response.getWriter().write(builder.build().toString());
                     response.setStatus(HttpServletResponse.SC_OK);
 
                 

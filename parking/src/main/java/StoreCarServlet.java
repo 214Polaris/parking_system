@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
 import java.sql.Timestamp;
 
 public class StoreCarServlet extends HttpServlet {
@@ -19,7 +18,7 @@ public class StoreCarServlet extends HttpServlet {
         try {
             // 连接数据库
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Aa15606936638");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
             // 执行插入数据的SQL语句
             String insertQuery = "INSERT INTO cars (licensePlate, entryTime) VALUES (?, ?)";

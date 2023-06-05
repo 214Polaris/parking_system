@@ -7,14 +7,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
+import jakarta.json.Json;
+import jakarta.json.JsonObjectBuilder;
 
 public class UserInfoServlet extends HttpServlet {
 
   private static final String DB_URL = "jdbc:mysql://localhost:3306/parking";
   private static final String USER = "root";
-  private static final String PASS = "chen8574jun";
+  private static final String PASS = "Hzm13602985871";
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String username = request.getParameter("username");

@@ -41,4 +41,3 @@ public class LoginServlet extends HttpServlet {
       out.println("登录失败，出现错误。错误信息：" + se.getMessage());
     }
   }
-}

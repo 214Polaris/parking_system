@@ -11,6 +11,12 @@
       text-align: center;
     }
 
+    /*
+    body{
+      background-size: cover;
+      background-image: url(https://youimg1.c-ctrip.com/target/100v1b000001c3gnpD9A9.jpg);
+    }*/
+
     /* 使用Flexbox来居中并排列按钮 */
     .button-container {
       display: flex;
@@ -32,24 +38,81 @@
       flex-wrap: wrap;
       margin-left: 850px;
     }
+
+    footer {
+      height: 25vw;
+      background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(https://images.unsplash.com/photo-1514227765494-1bbd6ba05916?auto=format&fit=crop&w=1600&q=100) no-repeat;
+      background-size: 50%, 100%;
+    }
+
+    .dialog-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .dialog {
+      position: relative;
+      background: #fff;
+      border: 2px solid #ccc;
+      padding: 10px;
+      width: 40vw;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 0px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .form-group {
+      margin-bottom: 8px;
+    }
+
+    .mess_btn {
+      margin-left: 300px;
+    }
   </style>
 </head>
 
 <body>
-
-  <div align="center">
-    <image src="./static/sysu_faviox.jpg" width="350" height="150" position: relative>
-      <div class="divider"></div>
+  <div class="header u-unselectable header-animated">
+    <div class="header-brand">
+      <div class="nav-item no-hover">
+        <image src="./static/sysu_faviox.jpg" width="300" height="200">
+      </div>
+      <div class="nav-item nav-btn" id="header-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="header-nav" id="header-menu">
+    </div>
   </div>
+
   <div class="u-flex u-justify-space-between u-gap-2 u-items-center">
-    <div class="u-flex u-flex-row u-gap-2 u-items-center">
-      <image src="./static/sysu.jpg" width="1600" height="1000" position: relative>
+    <div class="u-flex u-flex-row u-gap-2 u-items-center" style="margin-left: 15vw; height: 45vw;">
+      <image src="./static/ChargeStandard.jpg" width="500vw">
     </div>
     <!--右半区-->
-    <div class="frame" style="height: 45rem; width: 60rem;">
+    <div class="frame" style="height: 45rem; width: 70rem;">
       <div align="center">
         <div class="frame__header">
-          <h1 id="welcomeMessage"> 个人中心 </h1>
+          <h1 id="welcomeMessage" style="color: white;"> 个人中心 </h1>
           <div class="avatar--xl"><img src="https://i.imgur.com/sbKJVxr.png" /></div>
           <!--数据库拿用户名-->
           <p class="u-text-center frame__title">John Doe</p>
@@ -57,18 +120,183 @@
           <button type="button" class="btn-success btn--xl" onclick="storeCar()">我要存车</button>
           <button type="button" class="btn-success btn--xl" onclick="takeOutCar()">我要取车</button>
           <!--更改显示个人信息-->
-          <br /><button type="button" class="btn-success btn--xl" onclick="takeOutCar()">修改个人信息</button>
+          <br /><button type="button" class="btn-success btn--xl" onclick="changeInfo()">修改个人信息</button>
           <br /><button type="button" class="btn-success btn--md" onclick="ReturnPage()">退出登录</button>
           <div id="userInfo"></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="divider"></div>
+  <details class="accordion">
+    <summary class="accordion__summary">私货</summary>
+    <p> 
+      你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。
+    </p>
+  </details>
+
+  <footer class="footer">
+    <h6 class="footer__title text-white uppercase">中山大学软件工程学院</h6>
+    <div class="content">
+      <div class="divider"></div>
+
+      <div class="row">
+        <div class="col-4">
+          <ul class="no-bullets">
+            <a href="!#">
+              <li class="footer__list-item">Home</li>
+            </a>
+            <ul>
+            </ul>
+          </ul>
+        </div>
+        <div class="col-4">
+          <ul class="no-bullets">
+            <a href="!#">
+              <li class="footer__list-item">Company Information</li>
+            </a>
+            <ul>
+            </ul>
+          </ul>
+        </div>
+        <div class="col-4">
+          <ul class="no-bullets">
+            <a href="!#">
+              <li class="footer__list-item">FAQ</li>
+            </a>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="subtitle">Company © 2018.</p>
+  </footer>
   </div>
 
   <script>
     var userInfo = null;
+
+    function changeInfo () {
+      var dialogContainer = document.createElement("div");
+      dialogContainer.classList.add("dialog-container");
+
+      // 创建消息框元素
+      var dialog = document.createElement("div");
+      dialog.classList.add("dialog");
+
+      // 创建关闭按钮
+      var closeButton = document.createElement("span");
+      closeButton.innerHTML = "&times;";
+      closeButton.classList.add("close-button");
+      closeButton.onclick = function () {
+        // 关闭消息框
+        document.body.removeChild(dialogContainer);
+      };
+
+      // 创建选择框
+      var selectLabel = document.createElement("label");
+      selectLabel.innerHTML = "选择要修改的内容: ";
+      var selectInput = document.createElement("select");
+      selectInput.name = "selection";
+      selectInput.classList.add("form-control");
+
+      var optionAccount = document.createElement("option");
+      optionAccount.value = "username";
+      optionAccount.innerHTML = "账号";
+      selectInput.appendChild(optionAccount);
+
+      var optionPassword = document.createElement("option");
+      optionPassword.value = "psw";
+      optionPassword.innerHTML = "密码";
+      selectInput.appendChild(optionPassword);
+
+      var optionLicensePlate = document.createElement("option");
+      optionLicensePlate.value = "licensePlate";
+      optionLicensePlate.innerHTML = "车牌号";
+      selectInput.appendChild(optionLicensePlate);
+
+      var selectFormGroup = document.createElement("div");
+      selectFormGroup.classList.add("form-group");
+      selectFormGroup.appendChild(selectLabel);
+      selectFormGroup.appendChild(selectInput);
+
+      dialog.appendChild(selectFormGroup);
+
+      // 创建提交按钮
+      var submitButton = document.createElement("button");
+      submitButton.innerHTML = "提交";
+      submitButton.classList.add("btn--lg", "btn-success", "mess_btn");
+      submitButton.onclick = function () {
+        var selectedValue = selectInput.value;
+
+        // 隐藏选择框和提交按钮
+        selectFormGroup.classList.add("hidden");
+        submitButton.classList.add("hidden");
+
+        // 创建修改页面
+        var editPage = document.createElement("div");
+
+        var editLabel = document.createElement("label");
+        editLabel.innerHTML = selectedValue + ": ";
+        var editInput = document.createElement("input");
+        editInput.type = "text";
+        editInput.name = selectedValue;
+        editInput.classList.add("form-control");
+
+        var editFormGroup = document.createElement("div");
+        editFormGroup.classList.add("form-group");
+        editFormGroup.appendChild(editLabel);
+        editFormGroup.appendChild(editInput);
+
+        editPage.appendChild(editFormGroup);
+
+        dialog.appendChild(editPage);
+
+        // 创建保存按钮
+        var saveButton = document.createElement("button");
+        saveButton.innerHTML = "保存";
+        saveButton.classList.add("btn--lg", "btn-success", "mess_btn");
+        saveButton.onclick = function () {
+          var editedValue = editInput.value;
+          // 在这里可以进行保存逻辑
+          // 设置请求方法和URL
+          xhttp.open("POST", "/parking/frontend/edit", true);
+          // 设置请求头
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          var username = urlParams.get('username');
+          // 发送请求
+          if (editInput.name == "username") {
+            xhttp.send("name=" + username + "&" + "type=1" + "&" + editInput.name + "=" + editInput.value);
+          }
+          if (editInput.name == "psw") {
+            xhttp.send("name=" + username + "&" + "type=2" + "&" + editInput.name + "=" + editInput.value);
+          }
+          if (editInput.name == "licensePlate") {
+            xhttp.send("name=" + username + "&" + "type=3" + "&" + editInput.name + "=" + editInput.value);
+          }
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              alert("个人信息修改成功"); // 新增的代码
+            }
+          };
+          // 关闭消息框
+          document.body.removeChild(dialogContainer);
+        };
+
+        dialog.appendChild(saveButton);
+      };
+
+      dialog.appendChild(submitButton);
+
+      // 将关闭按钮添加到消息框元素中
+      dialog.appendChild(closeButton);
+
+      // 将消息框添加到消息框容器元素中
+      dialogContainer.appendChild(dialog);
+
+      // 将消息框容器添加到页面
+      document.body.appendChild(dialogContainer);
+    }
+
+    //取车按钮
     function takeOutCar () {
       // 获取licensePlate
       var confirmed = confirm("Confirm to take out " + userInfo.licensePlate + "?");
@@ -145,9 +373,6 @@
         document.getElementById("userInfo").innerText = "Username: " + userInfo.username + ", LicensePlate: " + userInfo.licensePlate;
         // 修改欢迎语为"Welcome, <username>"
         document.getElementById("welcomeMessage").innerText = "Welcome, " + userInfo.username;
-        // 绑定存取车的按钮到对应的函数
-
-
       }
     };
 

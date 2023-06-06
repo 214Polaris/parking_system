@@ -9,17 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
 public class StoreCarServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 从session中获取用户信息
-                String licensePlate = request.getParameter("licensePlate");
-        Timestamp entryTime = new Timestamp(System.currentTimeMillis()); // 创建当前时间戳
-                
-        // 将licensePlate和entryTime存入数据库的cars表单
-        try {
-            // 连接数据库
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
-
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // 从session中获取用户信息
+    String licensePlate = request.getParameter("licensePlate");
+    Timestamp entryTime = new Timestamp(System.currentTimeMillis()); // 创建当前时间戳
     // 将licensePlate和entryTime存入数据库的cars表单
     try {
       // 连接数据库

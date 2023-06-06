@@ -16,9 +16,9 @@ public class TakeOutCarServlet extends HttpServlet {
     String licensePlate = request.getParameter("licensePlate");
     Timestamp exitTime = new Timestamp(System.currentTimeMillis()); // 创建当前时间戳
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
+    try {
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
 
       String selectQuery = "SELECT entryTime FROM cars WHERE licensePlate = ?";
       PreparedStatement preparedStatement = conn.prepareStatement(selectQuery);
@@ -31,23 +31,19 @@ public class TakeOutCarServlet extends HttpServlet {
         long durationInHours = duration / (60 * 60 * 1000);
         long cost = 5 * durationInHours;
 
-                // 添加更新语句来保存departureTime和fee
-                        String updateQuery = "UPDATE cars SET departureTime = ?, fee = ? WHERE licensePlate = ?";
-                        PreparedStatement updateStatement = conn.prepareStatement(updateQuery);
-                        updateStatement.setTimestamp(1, exitTime);
-                        updateStatement.setLong(2, cost);
-                        updateStatement.setString(3, licensePlate);
-                        updateStatement.executeUpdate();
-                // 将返回的消息和费用信息封装成JSON格式
-                    JsonObjectBuilder builder = Json.createObjectBuilder();
-                    builder.add("message", "Take out Car Operation Successful!");
-                    builder.add("cost", cost);
-                    response.setContentType("application/json");
-                    response.getWriter().write(builder.build().toString());
-                    response.setStatus(HttpServletResponse.SC_OK);
-
+        // 添加更新语句来保存departureTime和fee
+        String updateQuery = "UPDATE cars SET departureTime = ?, fee = ? WHERE licensePlate = ?";
+        PreparedStatement updateStatement = conn.prepareStatement(updateQuery);
+        updateStatement.setTimestamp(1, exitTime);
+        updateStatement.setLong(2, cost);
+        updateStatement.setString(3, licensePlate);
+        updateStatement.executeUpdate();
+        // 将返回的消息和费用信息封装成JSON格式
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("message", "Take out Car Operation Successful!");
+        builder.add("cost", cost);
         response.setContentType("application/json");
-        response.getWriter().write(json);
+        response.getWriter().write(builder.build().toString());
         response.setStatus(HttpServletResponse.SC_OK);
 
       } else {

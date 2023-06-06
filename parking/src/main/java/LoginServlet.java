@@ -17,7 +17,9 @@ public class LoginServlet extends HttpServlet {
 
     System.out.println("Received a request with data: " + username + ", " + password);
 
+    try {
       Class.forName("com.mysql.cj.jdbc.Driver");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
 
       System.out.println("Connected to the database.");
 
@@ -41,3 +43,4 @@ public class LoginServlet extends HttpServlet {
       out.println("登录失败，出现错误。错误信息：" + se.getMessage());
     }
   }
+}

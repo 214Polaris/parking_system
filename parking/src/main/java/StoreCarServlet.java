@@ -17,7 +17,7 @@ public class StoreCarServlet extends HttpServlet {
     try {
       // 连接数据库
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
       // 执行插入数据的SQL语句
       String insertQuery = "INSERT INTO cars (licensePlate, entryTime) VALUES (?, ?)";

@@ -11,7 +11,6 @@ public class EditServlet extends HttpServlet{
         String typeNum = request.getParameter("type");
         int type = Integer.parseInt(typeNum);
         String oldName = request.getParameter("name");
-        System.out.println("asdfasdfasf" + type + " " + oldName);
         String context;
         //判断要修改的内容类型
         if(type == 1){

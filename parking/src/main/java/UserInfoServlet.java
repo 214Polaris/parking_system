@@ -41,7 +41,7 @@ public class UserInfoServlet extends HttpServlet {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("username", username);
         builder.add("licensePlate", licensePlate);
-
+        
         response.setContentType("application/json");
         response.getWriter().write(builder.build().toString());
       } else {

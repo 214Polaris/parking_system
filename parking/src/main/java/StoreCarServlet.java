@@ -22,7 +22,7 @@ public class StoreCarServlet extends HttpServlet {
     try {
       // 连接数据库
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
 
       //建立车库数组
       int[][] garageMap = new int[4][4];
@@ -50,9 +50,9 @@ public class StoreCarServlet extends HttpServlet {
       PreparedStatement queryStatement = conn.prepareStatement(query);
       queryStatement.setString(1, licensePlate);
       ResultSet rs = queryStatement.executeQuery();
-      if (rs.next()){
-        //看取车时间是否为空，空说明已经存车
-        if(rs.getObject(3) == null){
+      if (rs.next()) {
+        // 看取车时间是否为空，空说明已经存车
+        if (rs.getObject(3) == null) {
           response.setStatus(422);
           System.out.println("已存车，不能重复存车");
           queryStatement.close();

@@ -1,0 +1,64 @@
+{
+    "name": "cirrus-ui",
+    "version": "0.7.1",
+    "description": "A lightweight UI framework written in SCSS",
+    "main": "./dist/cirrus.min.css",
+    "filename": "cirrus.min.css",
+    "directories": {
+        "doc": "docs"
+    },
+    "scripts": {
+        "test": "jest",
+        "build": "gulp minify",
+        "watch": "gulp watch",
+        "prepare": "npm run snyk-protect",
+        "snyk-protect": "snyk-protect"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "repository": "git+https://github.com/Spiderpig86/Cirrus.git",
+    "keywords": [
+        "cirrus",
+        "css",
+        "UI",
+        "framework"
+    ],
+    "author": "Stanley Lim",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Spiderpig86/Cirrus/issues"
+    },
+    "homepage": "https://github.com/Spiderpig86/Cirrus",
+    "autoupdate": {
+        "source": "git",
+        "target": "git://github.com/Spiderpig86/Cirrus.git",
+        "basePath": "dist",
+        "files": [
+            "cirrus.min.css",
+            "cirrus.css"
+        ]
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-build": "^0.5.3",
+        "gulp-clean-css": "^4.2.0",
+        "gulp-cli": "^2.0.1",
+        "gulp-concat": "^2.6.1",
+        "gulp-gzip": "^1.4.2",
+        "gulp-header": "^2.0.5",
+        "gulp-load-plugins": "^2.0.1",
+        "gulp-size": "^3.0.0"
+    },
+    "dependencies": {
+        "@snyk/protect": "^1.707.0",
+        "glob": "^7.2.0",
+        "global": "^4.4.0",
+        "gulp-sass": "^5.1.0",
+        "gulp-sizereport": "^1.2.1",
+        "jest": "^27.3.1",
+        "sass": "^1.51.0",
+        "sass-true": "^6.0.1"
+    },
+    "snyk": true
+}

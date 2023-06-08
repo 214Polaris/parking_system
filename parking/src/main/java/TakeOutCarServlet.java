@@ -20,7 +20,23 @@ public class TakeOutCarServlet extends HttpServlet {
       Class.forName("com.mysql.jdbc.Driver");
       Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
-      String selectQuery = "SELECT entryTime FROM cars WHERE licensePlate = ?";
+      //先判断是否有存车
+      String query = "SELECT * FROM cars WHERE licensePlate = ? ORDER BY id DESC LIMIT 1";
+      PreparedStatement queryStatement = conn.prepareStatement(query);
+      queryStatement.setString(1, licensePlate);
+      ResultSet rs = queryStatement.executeQuery();
+      if (rs.next()){
+        //看取车时间是否为空，非空说明没有存车
+        if(rs.getObject(3) != null){
+          response.setStatus(422);
+          System.out.println("还未存车，不能取车");
+          queryStatement.close();
+          return;
+        }
+      }
+
+      //取车，修改取车时间和费用
+      String selectQuery = "SELECT entryTime FROM cars WHERE licensePlate = ? ORDER BY id DESC LIMIT 1";
       PreparedStatement preparedStatement = conn.prepareStatement(selectQuery);
       preparedStatement.setString(1, licensePlate);
       ResultSet resultSet = preparedStatement.executeQuery();
@@ -32,11 +48,12 @@ public class TakeOutCarServlet extends HttpServlet {
         long cost = 5 * durationInHours;
 
         // 添加更新语句来保存departureTime和fee
-        String updateQuery = "UPDATE cars SET departureTime = ?, fee = ? WHERE licensePlate = ?";
+        String updateQuery = "UPDATE cars SET departureTime = ?, fee = ? WHERE licensePlate = ? and entryTime = ?";
         PreparedStatement updateStatement = conn.prepareStatement(updateQuery);
         updateStatement.setTimestamp(1, exitTime);
         updateStatement.setLong(2, cost);
         updateStatement.setString(3, licensePlate);
+        updateStatement.setTimestamp(4, entryTime);
         updateStatement.executeUpdate();
         // 将返回的消息和费用信息封装成JSON格式
         JsonObjectBuilder builder = Json.createObjectBuilder();

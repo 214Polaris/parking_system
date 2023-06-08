@@ -27,12 +27,6 @@
       margin: 0 auto;
     }
 
-    #userInfo {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-    }
-
     .exit {
       display: flex;
       flex-wrap: wrap;
@@ -112,17 +106,16 @@
     <div class="frame" style="height: 45rem; width: 70rem;">
       <div align="center">
         <div class="frame__header">
-          <h1 id="welcomeMessage" style="color: white;"> 个人中心 </h1>
+          <h1 style="color: rgb(0, 0, 0);"> 个人中心 </h1>
           <div class="avatar--xl"><img src="https://i.imgur.com/sbKJVxr.png" /></div>
           <!--数据库拿用户名-->
-          <p class="u-text-center frame__title">John Doe</p>
-          <p class="u-text-center frame__subtitle">Former youngest person on Earth</p>
+          <p id="welcomeMessage" class="u-text-center frame__title u--k"></p>
+          <p id="userInfo" class="u-text-center frame__subtitle"></p>
           <button type="button" class="btn-success btn--xl" onclick="storeCar()">我要存车</button>
           <button type="button" class="btn-success btn--xl" onclick="takeOutCar()">我要取车</button>
           <!--更改显示个人信息-->
           <br /><button type="button" class="btn-success btn--xl" onclick="changeInfo()">修改个人信息</button>
           <br /><button type="button" class="btn-success btn--md" onclick="ReturnPage()">退出登录</button>
-          <div id="userInfo"></div>
         </div>
       </div>
     </div>
@@ -171,9 +164,19 @@
   </footer>
   </div>
 
-  <script>
-    var userInfo = null;
 
+  <script>
+    //定义map
+    var map = new Array();
+    for (let i = 0; i < 4; i++) {        //一维长度为4
+      map[i] = new Array();
+      for (let j = 0; j < 4; j++) {      //二维长度为4
+        map[i][j] = 0;
+      }
+    }
+    //定义个人信息
+    var userInfo = null;
+    //更改个人信息
     function changeInfo () {
       var dialogContainer = document.createElement("div");
       dialogContainer.classList.add("dialog-container");
@@ -274,7 +277,8 @@
           }
           xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              alert("个人信息修改成功"); // 新增的代码
+              alert("个人信息修改成功,请重新登录！"); // 新增的代码
+              window.location.href = "login.html";
             }
           };
           // 关闭消息框
@@ -336,26 +340,42 @@
       if (!confirmed) {
         return;
       }
-
-      // 创建XMLHttpRequest对象
-      var xhttp = new XMLHttpRequest();
-
-      // 设置请求方法和URL
-      xhttp.open("POST", "/parking/frontend/storeCar", true);
-
-      // 设置请求头
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-      // 发送数据
-      xhttp.send("licensePlate=" + userInfo.licensePlate);
-
-      // 处理服务器响应
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          alert("Store Car Operation Successful!"); // 新增的代码
+      //判断哪里有空位
+      let x = 0; let y = 0;
+      for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
+          if (map[i][j] === 0) {
+            x = i+1;
+            y = j+1;
+            break;
+          }
         }
-      };
+      }
+      if (x === 0 && y === 0) {
+        alert("很抱歉！目前车位已满！")
+      }
+      else {
+        // 创建XMLHttpRequest对象
+        var xhttp = new XMLHttpRequest();
+
+        // 设置请求方法和URL
+        xhttp.open("POST", "/parking/frontend/storeCar", true);
+
+        // 设置请求头
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // 发送数据
+        xhttp.send("licensePlate=" + userInfo.licensePlate + "&x=" + x + "&y=" + y);
+
+        // 处理服务器响应
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            alert("存车成功！"); // 新增的代码
+          }
+        };
+      }
     }
+
     // 解析URL以获取username
     var urlParams = new URLSearchParams(window.location.search);
     var username = urlParams.get('username');
@@ -365,14 +385,28 @@
     xhttp.open("GET", "/parking/frontend/getUserInfo?username=" + username, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send();
-
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
         userInfo = JSON.parse(this.responseText);
         // 显示用户名和车牌号
-        document.getElementById("userInfo").innerText = "Username: " + userInfo.username + ", LicensePlate: " + userInfo.licensePlate;
+        document.getElementById("userInfo").innerText = "用户名: " + userInfo.username + ", 您的车牌号: " + userInfo.licensePlate;
         // 修改欢迎语为"Welcome, <username>"
-        document.getElementById("welcomeMessage").innerText = "Welcome, " + userInfo.username;
+        document.getElementById("welcomeMessage").innerText = "你好！ " + userInfo.username;
+      }
+    };
+
+    //向服务器获取地图位置信息
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/parking/frontend/location", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let response = JSON.parse(this.responseText);
+        //标记地图位置信息
+        for (i = 0; i < response.length; i++) {
+          map[response[i].x - 1][response[i].y - 1] = 1;
+        }
       }
     };
 

@@ -9,9 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
-import javax.security.auth.login.LoginContext;
-
-
 public class StoreCarServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    
@@ -22,7 +19,7 @@ public class StoreCarServlet extends HttpServlet {
     try {
       // 连接数据库
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
       //建立车库数组
       int[][] garageMap = new int[4][4];
@@ -52,7 +49,7 @@ public class StoreCarServlet extends HttpServlet {
       ResultSet rs = queryStatement.executeQuery();
       if (rs.next()) {
         // 看取车时间是否为空，空说明已经存车
-        if (rs.getObject(3) == null) {
+        if (rs.getObject(4) == null) {
           response.setStatus(422);
           System.out.println("已存车，不能重复存车");
           queryStatement.close();

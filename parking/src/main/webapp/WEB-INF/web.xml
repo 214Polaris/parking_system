@@ -58,4 +58,13 @@
         <servlet-name>EditServlet</servlet-name>
         <url-pattern>/frontend/edit</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendLocationServlet</servlet-name>
+        <servlet-class>SendLocationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendLocationServlet</servlet-name>
+        <url-pattern>/frontend/location</url-pattern>
+    </servlet-mapping>
 </web-app>

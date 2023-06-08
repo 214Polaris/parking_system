@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 
-
 public class StoreCarServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // 从session中获取用户信息
@@ -19,16 +18,16 @@ public class StoreCarServlet extends HttpServlet {
     try {
       // 连接数据库
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
 
-      //先查询是否已经存车
+      // 先查询是否已经存车
       String query = "SELECT * FROM cars WHERE licensePlate = ? ORDER BY id DESC LIMIT 1";
       PreparedStatement queryStatement = conn.prepareStatement(query);
       queryStatement.setString(1, licensePlate);
       ResultSet rs = queryStatement.executeQuery();
-      if (rs.next()){
-        //看取车时间是否为空，空说明已经存车
-        if(rs.getObject(3) == null){
+      if (rs.next()) {
+        // 看取车时间是否为空，空说明已经存车
+        if (rs.getObject(3) == null) {
           response.setStatus(422);
           System.out.println("已存车，不能重复存车");
           queryStatement.close();

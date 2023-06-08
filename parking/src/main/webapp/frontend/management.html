@@ -88,16 +88,24 @@
       <div class="nav-item no-hover">
         <image src="./static/sysu_faviox.jpg" width="300" height="200">
       </div>
-      <div class="nav-item nav-btn" id="header-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
     </div>
     <div class="header-nav" id="header-menu">
+      <div class="nav-item has-sub toggle-hover nav-right">
+        <a class="nav-dropdown-link" style="font-size: large;">
+            需要帮助？
+        </a>
+        <ul class="dropdown-menu dropdown-animated" role="menu">
+          <li role="menu-item"><a onclick="showContact()">联系我们</a></li>
+          <li role="menu-item"><a href="https://sse.sysu.edu.cn/" target="_blank">反馈中心</a></li>
+      </ul>
+      </div>
     </div>
   </div>
-
+  <div align="center">
+    <h2>当前车位繁忙情况</h2>
+    <p id="situation"></p>
+    <progress id="progressbar" class="progress progress--xl" :value="rate" max="100" style="width:25vw;text-align: left;"></progress>
+  </div>
   <div class="u-flex u-justify-space-between u-gap-2 u-items-center">
     <div class="u-flex u-flex-row u-gap-2 u-items-center" style="margin-left: 15vw; height: 45vw;">
       <image src="./static/ChargeStandard.jpg" width="500vw">
@@ -176,6 +184,10 @@
     }
     //定义个人信息
     var userInfo = null;
+    //联系方式
+    function showContact(){
+      alert("客服的联系电话:\n15507662529(小炜)\n\n18559163703(小韬)\n\n13602985871(小铭)");
+    }
     //更改个人信息
     function changeInfo () {
       var dialogContainer = document.createElement("div");
@@ -326,6 +338,9 @@
           var response = JSON.parse(this.responseText);
           alert(response.message + "\nFee: " + response.cost); // 在提示中显示费用
         }
+        if(this.status == 401){
+          alert("您还未停车，请先停车")
+        }
       };
     }
 
@@ -340,40 +355,25 @@
       if (!confirmed) {
         return;
       }
-      //判断哪里有空位
-      let x = 0; let y = 0;
-      for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
-          if (map[i][j] === 0) {
-            x = i+1;
-            y = j+1;
-            break;
-          }
+
+      // 创建XMLHttpRequest对象
+      var xhttp = new XMLHttpRequest();
+
+      // 设置请求方法和URL
+      xhttp.open("POST", "/parking/frontend/storeCar", true);
+
+      // 设置请求头
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      // 发送数据
+      xhttp.send("licensePlate=" + userInfo.licensePlate);
+
+      // 处理服务器响应
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          alert("存车成功！"); // 新增的代码
         }
-      }
-      if (x === 0 && y === 0) {
-        alert("很抱歉！目前车位已满！")
-      }
-      else {
-        // 创建XMLHttpRequest对象
-        var xhttp = new XMLHttpRequest();
-
-        // 设置请求方法和URL
-        xhttp.open("POST", "/parking/frontend/storeCar", true);
-
-        // 设置请求头
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        // 发送数据
-        xhttp.send("licensePlate=" + userInfo.licensePlate + "&x=" + x + "&y=" + y);
-
-        // 处理服务器响应
-        xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
-            alert("存车成功！"); // 新增的代码
-          }
-        };
-      }
+      };
     }
 
     // 解析URL以获取username
@@ -396,6 +396,8 @@
     };
 
     //向服务器获取地图位置信息
+    var rate;
+    var rest;
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", "/parking/frontend/location", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -404,12 +406,16 @@
       if (this.readyState == 4 && this.status == 200) {
         let response = JSON.parse(this.responseText);
         //标记地图位置信息
-        for (i = 0; i < response.length; i++) {
-          map[response[i].x - 1][response[i].y - 1] = 1;
+        rest = 16 - response.length;
+        rate = response.length / 16 * 100
+        for (let i = 0; i < response.length; i++) {
+          map[response[i].locx - 1][response[i].locy - 1] = 1;
         }
       }
     };
-
+    //给进度条赋值
+    document.getElementById('progressbar').value = rate
+    document.getElementById("situation").innerText = "当前还有" + rest + "个空闲车位,共16个车位"
   </script>
 </body>
 

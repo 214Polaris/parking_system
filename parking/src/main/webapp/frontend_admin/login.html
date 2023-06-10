@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html :class="{ 'theme-dark': !dark }" x-data="data()" lang="en">
+<html :class="{ 'theme-dark': !dark }" x-data="data()" lang="zh">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,12 +8,12 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
-    <script src="../assets/js/init-alpine.js"></script>
+    <script src="./assets/js/init-alpine.js"></script>
   </head>
   <body>
     <div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
@@ -25,13 +25,13 @@
             <img
               aria-hidden="true"
               class="object-cover w-full h-full dark:hidden"
-              src="../assets/img/login-office.jpeg"
+              src="./assets/img/login-office.jpeg"
               alt="Office"
             />
             <img
               aria-hidden="true"
               class="hidden object-cover w-full h-full dark:block"
-              src="../assets/img/login-office-dark.jpeg"
+              src="./assets/img/login-office-dark.jpeg"
               alt="Office"
             />
           </div>
@@ -74,7 +74,7 @@
               <p class="mt-1">
                 <a
                   class="text-sm font-medium text-green-500 dark:text-purple-400 hover:underline"
-                  href="./create-account.html"
+                  href="./pages/create-account.html"
                 >
                   创建账号
                 </a>
@@ -90,17 +90,15 @@
         var psw = document.getElementById('psw').value;
         console.log("Sending request with data: ", username, psw);
         var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://127.0.0.1:8080/login_admin", true);
+        xhttp.open("POST", "login_admin", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("username=" + username + "&psw=" + psw);
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
             console.log("Received response: ", this.responseText);
-            document.getElementById("response_message").innerHTML = this.responseText;
-            if (this.responseText.includes("登录成功")) {
-              window.location.href = "../index.html";
+              window.location.href = "index.html";
               sessionStorage.setItem(username);
-            }
+            
           }
       };
     }

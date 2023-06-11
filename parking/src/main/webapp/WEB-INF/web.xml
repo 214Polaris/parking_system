@@ -66,6 +66,8 @@
     <servlet-mapping>
         <servlet-name>SendLocationServlet</servlet-name>
         <url-pattern>/frontend/location</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>AdminLogin</servlet-name>
         <servlet-class>AdminLogin</servlet-class>

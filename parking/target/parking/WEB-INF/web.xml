@@ -76,4 +76,14 @@
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/frontend_admin/login_admin</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendGarageServlet</servlet-name>
+        <servlet-class>SendGarageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendGarageServlet</servlet-name>
+        <url-pattern>/frontend_admin/record</url-pattern>
+    </servlet-mapping>
+
 </web-app>

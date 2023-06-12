@@ -7,8 +7,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 
 
@@ -18,7 +21,6 @@ public class SendLocationServlet extends HttpServlet{
     private static final String PASS = "Hzm13602985871";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
         try {
             // 使用新的驱动类
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,7 +33,7 @@ public class SendLocationServlet extends HttpServlet{
             while(rs.next()){
                 int locx = rs.getInt(2);
                 int locy = rs.getInt(3);
-                //建立Json报文
+                //建立data部分报文
                 JsonObjectBuilder locationBuilder = Json.createObjectBuilder()
                 .add("locx", locx)
                 .add("locy", locy);

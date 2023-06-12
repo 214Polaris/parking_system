@@ -28,7 +28,7 @@ public class TakeOutCarServlet extends HttpServlet {
       if (rs.next()) {
         // 看取车时间是否为空，非空说明没有存车
         if (rs.getObject(4) != null) {
-          response.setStatus(422);
+          response.setStatus(401);
           System.out.println("还未存车，不能取车");
           queryStatement.close();
           return;

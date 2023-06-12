@@ -14,7 +14,7 @@ public class UserInfoServlet extends HttpServlet {
 
   private static final String DB_URL = "jdbc:mysql://localhost:3306/parking";
   private static final String USER = "root";
-  private static final String PASS = "chen8574jun";
+  private static final String PASS = "Hzm13602985871";
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String username = request.getParameter("username");
@@ -41,7 +41,7 @@ public class UserInfoServlet extends HttpServlet {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("username", username);
         builder.add("licensePlate", licensePlate);
-
+        
         response.setContentType("application/json");
         response.getWriter().write(builder.build().toString());
       } else {

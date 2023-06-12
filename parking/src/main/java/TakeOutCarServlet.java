@@ -18,7 +18,7 @@ public class TakeOutCarServlet extends HttpServlet {
 
     try {
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
       // 先判断是否有存车
       String query = "SELECT * FROM cars WHERE licensePlate = ? ORDER BY id DESC LIMIT 1";
@@ -27,15 +27,31 @@ public class TakeOutCarServlet extends HttpServlet {
       ResultSet rs = queryStatement.executeQuery();
       if (rs.next()) {
         // 看取车时间是否为空，非空说明没有存车
-        if (rs.getObject(3) != null) {
-          response.setStatus(422);
+        if (rs.getObject(4) != null) {
+          response.setStatus(401);
           System.out.println("还未存车，不能取车");
           queryStatement.close();
           return;
         }
       }
 
-      // 取车，修改取车时间和费用
+      //修改users表
+      String usersQuery = "UPDATE users SET locx = ?, locy = ? WHERE licensePlate = ?";
+      PreparedStatement usersStatement = conn.prepareStatement(usersQuery);
+      usersStatement.setInt(1, -1);
+      usersStatement.setInt(2, -1);
+      usersStatement.setString(3, licensePlate);
+      usersStatement.executeUpdate();
+      usersStatement.close();
+
+      //在garage表中删除
+      String garageDelete = "DELETE FROM garage WHERE licensePlate = ?";
+      PreparedStatement garagStatement = conn.prepareStatement(garageDelete);
+      garagStatement.setString(1, licensePlate);
+      garagStatement.executeUpdate();
+      garagStatement.close();
+
+      //取车，修改取车时间和费用
       String selectQuery = "SELECT entryTime FROM cars WHERE licensePlate = ? ORDER BY id DESC LIMIT 1";
       PreparedStatement preparedStatement = conn.prepareStatement(selectQuery);
       preparedStatement.setString(1, licensePlate);

@@ -58,6 +58,16 @@
         <servlet-name>EditServlet</servlet-name>
         <url-pattern>/frontend/edit</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendLocationServlet</servlet-name>
+        <servlet-class>SendLocationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendLocationServlet</servlet-name>
+        <url-pattern>/frontend/location</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>AdminLogin</servlet-name>
         <servlet-class>AdminLogin</servlet-class>
@@ -66,4 +76,14 @@
         <servlet-name>AdminLogin</servlet-name>
         <url-pattern>/frontend_admin/login_admin</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendGarageServlet</servlet-name>
+        <servlet-class>SendGarageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendGarageServlet</servlet-name>
+        <url-pattern>/frontend_admin/record</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -86,4 +86,21 @@
         <url-pattern>/frontend_admin/record</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SendHistoryServlet</servlet-name>
+        <servlet-class>SendHistoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendHistoryServlet</servlet-name>
+        <url-pattern>/frontend_admin/history</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendUserListServlet</servlet-name>
+        <servlet-class>SendUserListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendUserListServlet</servlet-name>
+        <url-pattern>/frontend_admin/userlist</url-pattern>
+    </servlet-mapping>
 </web-app>

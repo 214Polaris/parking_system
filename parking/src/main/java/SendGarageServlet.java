@@ -64,7 +64,7 @@ public class SendGarageServlet extends HttpServlet{
                 JsonObjectBuilder locationBuilder = Json.createObjectBuilder()
                 .add("username", username)
                 .add("licensePlate", licensePlate)
-                .add("location", "[" + locx + "," + locy + "]")
+                .add("location", "(" + locx + "," + locy + ")")
                 .add("date", time);
                 locationsBuilder.add(locationBuilder);
                 carsCount++;

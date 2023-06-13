@@ -53,7 +53,7 @@ public class SendHistoryServlet extends HttpServlet{
                 .add("entryTime", entryTime)
                 .add("departureTime", departureTime)
                 .add("fee", fee)
-                .add("location", "[" + locx + "," + locy + "]");
+                .add("location", "(" + locx + "," + locy + ")");
                 carsBuilder.add(carBuilder);
                 carsCount++;
             }

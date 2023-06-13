@@ -46,7 +46,7 @@ public class SendUserListServlet extends HttpServlet{
                 .add("username", username)
                 .add("licensePlate", licensePlate)
                 .add("password", password)
-                .add("location", "[" + locx + "," + locy + "]");
+                .add("location", "(" + locx + "," + locy + ")");
                 usersBuilder.add(userBuilder);
                 usersCount++;
             }

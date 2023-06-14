@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
   <script src="./assets/js/charts-lines.js" defer></script>
-  <script src="./assets/js/charts-pie.js" defer></script>
 </head>
 
 <body>
@@ -93,7 +92,7 @@
                 clip-rule="evenodd"></path>
             </svg>
           </button>
-          <div class="flex justify-center flex-1 lg:mr-32">欢迎来到自主停车管理系统！</div>
+          <div class="flex justify-center flex-1 lg:mr-32">欢迎来到自助停车管理系统！</div>
           <!-- 个人信息 -->
           <li class="relative">
             <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
@@ -196,7 +195,7 @@
                 <nav aria-label="Table navigation">
                   <ul class="inline-flex items-center">
                     <li>
-                      <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-green"
+                      <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none"
                         aria-label="Previous" id="prev">
                         <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                           <path
@@ -207,27 +206,27 @@
                     </li>
                     <!--第一页按钮-->
                     <li>
-                      <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-green"
+                      <button class="px-3 py-1 rounded-md focus:outline-none"
                         id="firstpageBtn">
                         1
                       </button>
                     </li>
                     <!--当前按钮-->
                     <li>
-                      <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-green"
+                      <button class="px-3 py-1 rounded-md focus:outline-none"
                         id="currentBtn">
                         1
                       </button>
                     </li>
                     <!--下一页的按钮-->
                     <li>
-                      <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-green" id="secondBtn">
+                      <button class="px-3 py-1 rounded-md focus:outline-none" id="secondBtn">
                         2
                       </button>
                     </li>
                     <!--下下个按钮-->
                     <li>
-                      <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-green" id="thirdBtn">
+                      <button class="px-3 py-1 rounded-md focus:outline-none" id="thirdBtn">
                         3
                       </button>
                     </li>
@@ -235,7 +234,7 @@
                       <span class="px-3 py-1">...</span>
                     </li>
                     <li>
-                      <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                      <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none"
                         aria-label="Next" id="next">
                         <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
                           <path
@@ -252,8 +251,12 @@
         </div>
         <script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.2.1/jquery.min.js"></script>
         <script>
+          //拿下用户名，做路由拦截
+          var username = "";
           window.onload = function () {
-            var username = sessionStorage.getItem(username)
+            if (username == "") {
+              localStorage.setItem(username);
+            }
             if (!username) {
               alert("请登录！")
               window.location.href = 'login.html'
@@ -261,7 +264,7 @@
           }
           function logout () {
             alert("您已退出登录！")
-            sessionStorage.removeItem(username);
+            localStorage.removeItem(username);
             window.location.href = 'login.html'
           }
           //引入了JQuery
@@ -311,7 +314,7 @@
             var showfilebody = document.getElementById('showfilebody');
             var tdstr = '';
             for (var i = 0; i < data.data.length; i++) {
-              tdstr += '<div class="flex items-center text-sm"><divclass="absolute inset-0 rounded-full shadow-inner"aria-hidden="true"></divclass=></div>' + '<td class="font-semibold">' + parseInt(i + 1) + '</td>';
+              tdstr += '<div class="flex items-center text-sm"><divclass="absolute inset-0 rounded-full shadow-inner"aria-hidden="true"></divclass=></div>' + '<td class="px-4 font-semibold">' + parseInt(i + 1) + '</td>';
               tdstr += '<td class="px-4 font-semibold">' + data.data[i].username + '</td>';
               tdstr += '<td class="px-4 py-3 text-lg">' + data.data[i].password + '</td>';
               tdstr += '<td class="px-4 py-3 text-lg">' + data.data[i].licensePlate + '</td>';
@@ -374,6 +377,7 @@
               $('#showtotalpage').text("总页数：" + totalPage);
               $('#secondBtn').text(currentPage + 1);
               $('#thirdBtn').text(currentPage + 2);
+              document.getElementById('currentBtn').style.color='#ff3333';
               if (currentPage == 1) {
                 isShowfirst.style.display = "none"
                 isShowsecond.style.display = "inline-block";

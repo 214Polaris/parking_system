@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
   <script src="./assets/js/charts-lines.js" defer></script>
-  <script src="./assets/js/charts-pie.js" defer></script>
 </head>
 
 <body>
@@ -190,7 +189,7 @@
       // 解析URL以获取username
       var urlParams = new URLSearchParams(window.location.search);
       username = urlParams.get('username');
-      sessionStorage.setItem(username);
+      localStorage.setItem(username);
     }
     if (!username) {
       alert("请登录！")
@@ -199,7 +198,7 @@
   }
   function logout(){
     alert("您已退出登录！")
-    sessionStorage.removeItem(username);
+    localStorage.removeItem(username);
     window.location.href = 'login.html'
   }
   </script>

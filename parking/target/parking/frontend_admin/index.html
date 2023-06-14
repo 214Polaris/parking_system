@@ -189,7 +189,7 @@
       // 解析URL以获取username
       var urlParams = new URLSearchParams(window.location.search);
       username = urlParams.get('username');
-      localStorage.setItem(username);
+      window.localStorage.setItem("info", username);
     }
     if (!username) {
       alert("请登录！")
@@ -198,7 +198,7 @@
   }
   function logout(){
     alert("您已退出登录！")
-    localStorage.removeItem(username);
+    window.localStorage.removeItem("info");
     window.location.href = 'login.html'
   }
   </script>

@@ -100,7 +100,8 @@
             // document.getElementById("response_message").innerHTML = this.responseText;
             // if (this.responseText.includes("登录成功")) {
             //   window.location.href = "index.html?username=" + username;
-            // }            
+            // }
+            window.localStorage.setItem("info", username);           
             window.location.href = "index.html?username=" + username;
           }
           else if(this.readyState == 4 && this.status != 200){

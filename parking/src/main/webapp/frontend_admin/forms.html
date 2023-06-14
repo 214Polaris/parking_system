@@ -346,7 +346,7 @@
           function writeForm (data) {
             //渲染统计数量
             document.getElementById("parking_num").innerHTML = data.data.length;
-            if (userList.length === 16) {
+            if (data.length === 16) {
               document.getElementById("full_or_not").innerHTML = "已满"
             }
             else {

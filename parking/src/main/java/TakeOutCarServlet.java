@@ -18,7 +18,7 @@ public class TakeOutCarServlet extends HttpServlet {
 
     try {
       Class.forName("com.mysql.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
       // 先判断是否有存车
       String query = "SELECT * FROM cars WHERE licensePlate = ? ORDER BY id DESC LIMIT 1";

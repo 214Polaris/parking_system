@@ -331,6 +331,7 @@
         if (this.readyState == 4 && this.status == 200) {
           var response = JSON.parse(this.responseText);
           alert(response.message + "\nFee: " + response.cost); // 在提示中显示费用
+          location.reload();
         }
         else if(this.readyState == 4 && this.status != 200){
           alert("您还未停车，请先停车")
@@ -366,6 +367,7 @@
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           alert("存车成功！"); // 新增的代码
+          location.reload();
         }
         else if(this.readyState == 4 && this.status != 200) {
           alert("您已停车，请先取车！")

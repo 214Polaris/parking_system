@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html :class="{ 'theme-dark': !dark }" x-data="data()" lang="zh">
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="zh">
 
 <head>
   <meta charset="UTF-8" />
@@ -529,6 +529,7 @@
               }
             } else {
               alert("不存在此页");
+              location.reload();
             }
           }
         </script>

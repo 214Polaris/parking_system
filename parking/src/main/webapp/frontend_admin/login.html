@@ -95,13 +95,16 @@
         xhttp.send("username=" + username + "&psw=" + psw);
         xhttp.onreadystatechange = function () {
           if (this.readyState == 4 && this.status == 200) {
-            console.log("Received response: ", this.responseText);
-            sessionStorage.setItem(username);
-            window.location.href = "index.html";
+            // console.log("Received response: ", this.responseText);
+            //sessionStorage.setItem(username);
+            // document.getElementById("response_message").innerHTML = this.responseText;
+            // if (this.responseText.includes("登录成功")) {
+            //   window.location.href = "index.html?username=" + username;
+            // }            
+            window.location.href = "index.html?username=" + username;
           }
-          else{
-            alert("密码输入错误！请重试")
-            window.location.href = "login.html";
+          else if(this.readyState == 4 && this.status != 200){
+            alert("登录失败，用户名或密码错误");
           }
       };
     }

@@ -19,7 +19,7 @@ public class AdminLogin extends HttpServlet {
 
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "chen8574jun");
+      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/parking", "root", "Hzm13602985871");
 
       System.out.println("Connected to the database.");
 
@@ -37,6 +37,7 @@ public class AdminLogin extends HttpServlet {
         // Login Failed
         out.println("登录失败，用户名或密码错误");
         System.out.println("Login failed.");
+        response.setStatus(401);
       }
     } catch (Exception se) {
       se.printStackTrace();

@@ -294,10 +294,8 @@
         <script>
           //拿下用户名，做路由拦截
           var username = "";
+          username = window.localStorage.getItem("info");
           window.onload = function () {
-            if (username == "") {
-              localStorage.setItem(username);
-            }
             if (!username) {
               alert("请登录！")
               window.location.href = 'login.html'
@@ -305,16 +303,11 @@
           }
           function logout () {
             alert("您已退出登录！")
-            localStorage.removeItem(username);
+            window.localStorage.removeItem("info");
             window.location.href = 'login.html'
           }
           //引入了JQuery
           //mock数据
-          var userList = [
-            { username: "祝贝臣", licensePlate: '粤R34086', location: "(1,2)", date: '2022/5/3' },
-            { username: "柳硼裁", licensePlate: '粤Q13286', location: "(1,3)", date: '2022/8/6' },
-            { username: "汞镜", licensePlate: '粤T85487', location: "(2,6)", date: '2023/9/7' }
-          ]
           var d = [];
 
           //页面数据

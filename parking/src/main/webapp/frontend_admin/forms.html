@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html :class="{ 'theme-dark': !dark }" x-data="data()" lang="zh">
+<html :class="{ 'theme-dark': dark }" x-data="data()" lang="zh">
 
 <head>
   <meta charset="UTF-8" />
@@ -355,7 +355,7 @@
             //渲染表格，像后端拉取api，获得data后改一下
             var showfilebody = document.getElementById('showfilebody');
             var tdstr = '';
-            for (var i = 0; i < data.data.length; i++) {
+            for (let i = 0; i < data.data.length; i++) {
               tdstr += '<div class="flex items-center text-sm"><divclass="absolute inset-0 rounded-full shadow-inner"aria-hidden="true"></divclass=></div>' + '<td class="px-4 font-semibold">' + parseInt(i + 1) + '</td>';
               tdstr += '<td class="px-4 font-semibold">' + data.data[i].username + '</td>';
               tdstr += '<td class="px-4 py-3 text-lg">' + data.data[i].licensePlate + '</td>';
@@ -368,16 +368,16 @@
               let newStr = words.replace(/\(([^).]*)\)/g, "$1");
               words = newStr.split(',')
               d.push(words)
-              console.log(d[i])
+              console.log("长度为："+data.data.length);
               //图表
               var chartDom = document.getElementById("bitchart");
               var myChart = echarts.init(chartDom);
               var option;
               const days = [];
               const hours = [];
-              for (i = 0; i < 4; i++) {
-                hours[i] = i;
-                days[i] = i;
+              for (let j = 0; j < 4; j++) {
+                hours[j] = j;
+                days[j] = j;
               }
               // prettier-ignore
               e = d.map(function (item) {
